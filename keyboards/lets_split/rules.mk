@@ -13,4 +13,6 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 
 SPLIT_KEYBOARD = yes
 
+KEY_OVERRIDE_ENABLE = yes
+
 DEFAULT_FOLDER = lets_split/rev2
