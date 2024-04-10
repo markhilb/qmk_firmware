@@ -22,6 +22,7 @@ enum layer_names {
 
 enum custom_keymaps {
     PASSWORD = SAFE_RANGE,
+    PASSWORD2,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -116,10 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------|-----------------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12(
-  _______, QK_BOOT, _______, _______, _______, _______, _______, _______,  _______, _______, _______,        _______,
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, PASSWORD, _______, _______, DF(_QGMLWB_EN), DF(_QGMLWB_NO),
-  _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,        _______,
-  _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,        _______
+  _______, QK_BOOT, _______, _______, _______, _______, _______, _______,  _______,   _______, _______,        _______,
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, PASSWORD, PASSWORD2, _______, DF(_QGMLWB_EN), DF(_QGMLWB_NO),
+  _______, _______, _______, _______, _______, _______, _______, _______,  _______,   _______, _______,        _______,
+  _______, _______, _______, _______, _______, _______, _______, _______,  _______,   _______, _______,        _______
 )
 
 };
@@ -137,11 +138,22 @@ const key_override_t *key_overrides[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed && keycode == PASSWORD) {
-        if (layer_state_cmp(default_layer_state, _QGMLWB_NO)) {
-            SEND_STRING("********");
-        } else {
-            SEND_STRING("********");
+    if (record->event.pressed) {
+        switch (keycode) {
+            case PASSWORD:
+                if (layer_state_cmp(default_layer_state, _QGMLWB_NO)) {
+                    SEND_STRING("********");
+                } else {
+                    SEND_STRING("********");
+                }
+                break;
+            case PASSWORD2:
+                if (layer_state_cmp(default_layer_state, _QGMLWB_NO)) {
+                    SEND_STRING("********");
+                } else {
+                    SEND_STRING("********");
+                }
+                break;
         }
     }
 
